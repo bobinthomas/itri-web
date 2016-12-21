@@ -1,3 +1,16 @@
+//color change on scroll
+jQuery(document).ready(function($) {
+  $(window).scroll(function() {
+    var scrollPos = $(window).scrollTop(),
+        navbar = $('.x-navbar');
+
+    if (scrollPos > 550) {
+      navbar.addClass('alt-color');
+    } else {
+      navbar.removeClass('alt-color');
+    }
+  });
+});
 
 // dropdown on hover
 $('ul.nav li.dropdown').hover(function() {
@@ -45,7 +58,8 @@ $('ul.nav li.dropdown').hover(function() {
 		doAnimations($animatingElems);
 	});  
     $('#carousel-example-generic').carousel({
-        interval:23000,
+       interval:8000,
+		//interval: false,
         pause: "false"
     });
 	
@@ -105,16 +119,197 @@ $(document).ready(function(){
     });    
 });
 
-// animation
-$('.launch').click(function(){
-  $('#rocket_launch').css("margin-bottom", "1000px");
-   $('.cloud_fill').css("animation","smoke_size .35s infinite");
-  $('.rocket_shadow').css("animation","shadow_flare .35s infinite");
+//aboutus page tabs
+
+( function( window ) {
+    
+	'use strict';
+
+	function extend( a, b ) {
+		for( var key in b ) { 
+			if( b.hasOwnProperty( key ) ) {
+				a[key] = b[key];
+			}
+		}
+		return a;
+	}
+
+	function CBPFWTabs( el, options ) {
+		this.el = el;
+		this.options = extend( {}, this.options );
+  		extend( this.options, options );
+  		this._init();
+	}
+
+	CBPFWTabs.prototype.options = {
+		start : 0
+	};
+
+	CBPFWTabs.prototype._init = function() {
+		// tabs elemes
+		this.tabs = [].slice.call( this.el.querySelectorAll( 'nav > ul > li' ) );
+		// content items
+		this.items = [].slice.call( this.el.querySelectorAll( '.content > section, content-pro > section' ) );
+		// current index
+		this.current = -1;
+		// show current content item
+		this._show();
+		// init events
+		this._initEvents();
+	};
+
+	CBPFWTabs.prototype._initEvents = function() {
+		var self = this;
+		this.tabs.forEach( function( tab, idx ) {
+			tab.addEventListener( 'click', function( ev ) {
+				ev.preventDefault();
+				self._show( idx );
+			} );
+		} );
+	};
+
+	CBPFWTabs.prototype._show = function( idx ) {
+		if( this.current >= 0 ) {
+			this.tabs[ this.current ].className = '';
+			this.items[ this.current ].className = '';
+		}
+		// change current
+		this.current = idx != undefined ? idx : this.options.start >= 0 && this.options.start < this.items.length ? this.options.start : 0;
+		this.tabs[ this.current ].className = 'tab-current';
+		this.items[ this.current ].className = 'content-current';
+	};
+
+	// add to global namespace
+	window.CBPFWTabs = CBPFWTabs;
+
+})( window );
+
+// secondary navigation
+
+$(document).ready(function() {
+  
+  $(window).scroll(function () {
+      //if you hard code, then use console
+      //.log to determine when you want the 
+      //nav bar to stick.  
+      console.log($(window).scrollTop())
+    if ($(window).scrollTop() > 330) {
+      $('.secondary').addClass('navbar-fixed-abt');
+    }
+    if ($(window).scrollTop() < 331) {
+      $('.secondary').removeClass('navbar-fixed-abt');
+    }
+  });
 });
 
-$('.reset').click(function(){
-     $('#rocket_launch').css("margin-bottom", "0px");
-    $('.cloud_fill').css("animation","none");
-  $('.cloud_fill').css("transform","scale(0)");
-  $('.rocket_shadow').css("animation","none");
+$(document).ready(function() {
+  
+  $(window).scroll(function () {
+      //if you hard code, then use console
+      //.log to determine when you want the 
+      //nav bar to stick.  
+      console.log($(window).scrollTop())
+    if ($(window).scrollTop() > 1000) {
+      $('.third').addClass('navbar-fixed-pro');
+    }
+    if ($(window).scrollTop() < 1001) {
+      $('.third').removeClass('navbar-fixed-pro');
+    }
+  });
+});
+
+
+
+	//  contact form
+
+//(function() {
+//  'use strict';
+//  window.setTimeout(function() {
+//    var formName = document.querySelector('#formName');
+//
+//    formName.focus();
+//    
+//    /*window.setTimeout(function() {
+//      (function timer() {
+//        var name = ['A', 'L', 'E', 'X'],
+//            counter = 0,
+//            maxLoops = name.length;
+//
+//        counter += 1;
+//        
+//        console.log(counter);
+//
+//        if (counter < maxLoops) {
+//          setTimeout(function() {
+//            formName.value += name[counter];
+//
+//            timer();
+//          }, 300);
+//        }
+//      })();
+//
+//      formName.style.background = '#fff';
+//    }, 700);*/
+//  }, 500);
+//  
+//  window.setTimeout(function() {
+//    document.querySelector('#formName').blur();
+//  }, 1500);
+//  
+//  /*window.setTimeout(function() {
+//    document.querySelector('#formEmail').focus();
+//  }, 2500);
+//  
+//  window.setTimeout(function() {
+//    document.querySelector('#formEmail').blur();
+//  }, 3500);
+//  
+//  window.setTimeout(function() {
+//    document.querySelector('#formSubject').focus();
+//  }, 4500);
+//  
+//  window.setTimeout(function() {
+//    document.querySelector('#formSubject').blur();
+//  }, 5500);
+//  
+//  window.setTimeout(function() {
+//    document.querySelector('#formMessage').focus();
+//  }, 6500);
+//  
+//  window.setTimeout(function() {
+//    document.querySelector('#formMessage').blur();
+//  }, 7500);
+//  
+//  window.setTimeout(function() {
+//    document.querySelector('#formCopy').click();
+//  }, 8500);
+//  
+//  window.setTimeout(function() {
+//    //document.querySelector('#formMessage').blur();
+//  }, 9500);*/
+//  
+//  window.setTimeout(function() {
+//    document.querySelector('#formButton').focus();
+//  }, 8500);
+//  
+//  window.setTimeout(function() {
+//    document.querySelector('#formMessage').blur();
+//  }, 9500);
+//
+//  return false;
+//}).call(this);
+
+// scroll to top
+$(document).ready(function(){ 
+    $(window).scroll(function(){ 
+        if ($(this).scrollTop() > 100) { 
+            $('#scroll').fadeIn(); 
+        } else { 
+            $('#scroll').fadeOut(); 
+        } 
+    }); 
+    $('#scroll').click(function(){ 
+        $("html, body").animate({ scrollTop: 0 }, 600); 
+        return false; 
+    }); 
 });
